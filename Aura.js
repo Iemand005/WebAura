@@ -18,14 +18,13 @@ class Aura {
 		this.device = device;
 	}
 
-	/** @param {(view:DataView)=>void} data  */
-	async sendFeatureReport(data) {
+	/** @param {(view:DataView)=>void} viewInit  */
+	async sendFeatureReport(viewInit) {
 		if (!this.device) return;
 		const buffer = new ArrayBuffer(63); 
 		const view = new DataView(buffer);
 
-		data(view);
-
+		viewInit(view);
 
 		const data = new Uint8Array(buffer);
 
@@ -33,17 +32,10 @@ class Aura {
 	}
 
 	async sendAuraInitReport() {
-		if (!this.device) return;
-		const buffer = new ArrayBuffer(63); 
-		const view = new DataView(buffer);
-
-		view.setUint8(0, 0xBC); // cmd (byte 1)
-		view.setUint8(1, 0x01); // mode (byte 2)
-
-
-		const data = new Uint8Array(buffer);
-
-		await this.device.sendFeatureReport(0x5A, data);
+		await this.sendFeatureReport(view => {
+			view.setUint8(0, 0xBC); // cmd (byte 1)
+			view.setUint8(1, 0x01); // mode (byte 2)
+		});
 	}
 
 	/**
@@ -52,20 +44,14 @@ class Aura {
 	 * @param {number} b 
 	 */
 	async sendAuraColorReport(r, g, b) {
-		if (!this.device) return;
-		const buffer = new ArrayBuffer(63);
-		const view = new DataView(buffer);
+		await this.sendFeatureReport(view => {
+			view.setUint8(0, 0xBC); // cmd
+			view.setUint8(1, 0x01); // mode
+			view.setUint8(2, 0x01); // apply
 
-		view.setUint8(0, 0xBC); // cmd
-		view.setUint8(1, 0x01); // mode
-		view.setUint8(2, 0x01); // apply
-
-		view.setUint8(8, r);  // r
-		view.setUint8(9, g);  // g
-		view.setUint8(10, b); // b
-
-		const data = new Uint8Array(buffer);
-
-		await this.device.sendFeatureReport(0x5A, data);
+			view.setUint8(8, r);  // r
+			view.setUint8(9, g);  // g
+			view.setUint8(10, b); // b
+		});
 	}
 }
