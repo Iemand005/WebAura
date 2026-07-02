@@ -19,7 +19,7 @@ class Aura {
 
 		const device = devices.find(device => device.collections.find(c => c.usagePage === this.usagePage && c.usage === this.usage));
 
-		if (!device) return;
+		if (!device) throw new Error("No Aura device found.");
 		if (!device.opened) await device.open();
 
 		this.device = device;
