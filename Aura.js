@@ -6,10 +6,6 @@ class Aura {
 		filters: [{ vendorId: 0x0B05 }]
 		});
 
-		devices.forEach(device => {
-			device.collections.forEach(collection => {
-				console.log(collection.usagePage == 0xFF31)
-			});
-		});
+		return devices.find(device => device.collections.find(collection => collection.usagePage == 0xFF31));
 	}
 }
