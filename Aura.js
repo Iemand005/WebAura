@@ -61,4 +61,11 @@ class Aura {
 			view.setUint8(10, b);
 		});
 	}
+	/** @param {string} hex  */
+	async setColorHex(hex) {
+		const r = parseInt(hex.substring(1, 3), 16);
+		const g = parseInt(hex.substring(3, 5), 16);
+		const b = parseInt(hex.substring(5, 7), 16);
+		await this.setColor(r, g, b);
+	}
 }
