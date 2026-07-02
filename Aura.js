@@ -48,7 +48,7 @@ class Aura {
 	 * @param {number} g 
 	 * @param {number} b 
 	 */
-	async sendAuraColorReport(r, g, b) {
+	async setColor(r, g, b) {
 		await this.sendFeatureReport(view => {
 			view.setUint8(0, 0xBC); // cmd
 			view.setUint8(1, 0x01); // mode
