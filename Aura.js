@@ -11,7 +11,11 @@ class Aura {
 
 		const device = devices.find(device => device.collections.find(collection => collection.usagePage === 0xFF31 && collection.usage === 0x76));
 
-		if (device) this.device = device;
+		if (!device) return;
+		
+		if (!device.opened) await device.open();
+
+		 this.device = device;
 	}
 
 	async sendAuraInitReport() {
