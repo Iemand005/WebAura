@@ -56,6 +56,4 @@ class Aura {
 
 		await this.device.sendFeatureReport(reportId, data);
 	}
-
-
 }
