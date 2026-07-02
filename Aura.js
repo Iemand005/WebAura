@@ -7,3 +7,10 @@ devices.forEach(device => {
         console.log(collection.usagePage == 0xFF31)
     });
 });
+
+class Aura {
+
+	async getAuraDevice() {
+		
+	}
+}
