@@ -18,6 +18,20 @@ class Aura {
 		this.device = device;
 	}
 
+	/** @param {(view:DataView)=>void} data  */
+	async sendFeatureReport(data) {
+		if (!this.device) return;
+		const buffer = new ArrayBuffer(63); 
+		const view = new DataView(buffer);
+
+		data(view);
+
+
+		const data = new Uint8Array(buffer);
+
+		await this.device.sendFeatureReport(0x5A, data);
+	}
+
 	async sendAuraInitReport() {
 		if (!this.device) return;
 		const buffer = new ArrayBuffer(63); 
