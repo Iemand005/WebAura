@@ -14,7 +14,7 @@ class Aura {
 	}
 
 	async getAuraDevice() {
-		if (!('hid' in navigator)) throw new Error("This browser does not support WebHID");
+		if (!('hid' in navigator)) throw new Error("This browser does not support WebHID.");
 		const devices = await navigator.hid.requestDevice({ filters: [{ vendorId: ASUS_VID }] });
 
 		const device = devices.find(device => device.collections.find(c => c.usagePage === this.usagePage && c.usage === this.usage));
