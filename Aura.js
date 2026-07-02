@@ -27,10 +27,9 @@ class Aura {
 		view.setUint8(1, 0x01); // mode (byte 2)
 
 
-		const reportId = 0x5A; // byte 0
 		const data = new Uint8Array(buffer);
 
-		await this.device.sendFeatureReport(reportId, data);
+		await this.device.sendFeatureReport(0x5A, data);
 	}
 
 	/**
@@ -51,9 +50,8 @@ class Aura {
 		view.setUint8(9, g);  // g
 		view.setUint8(10, b); // b
 
-		const reportId = 0x5A;
 		const data = new Uint8Array(buffer);
 
-		await this.device.sendFeatureReport(reportId, data);
+		await this.device.sendFeatureReport(0x5A, data);
 	}
 }
