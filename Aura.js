@@ -14,7 +14,7 @@ class Aura {
 	}
 
 	async getAuraDevice() {
-        	if (!('hid' in navigator)) return;
+		if (!('hid' in navigator)) throw new Error("This browser does not support WebHID");
 		const devices = await navigator.hid.requestDevice({ filters: [{ vendorId: ASUS_VID }] });
 
 		const device = devices.find(device => device.collections.find(c => c.usagePage === this.usagePage && c.usage === this.usage));
@@ -27,7 +27,7 @@ class Aura {
 
 	/** @param {(view:DataView)=>void} viewInit  */
 	async sendFeatureReport(viewInit) {
-		if (!this.device) return;
+		if (!this.device) throw new Error("Not initialized.");
 		const buffer = new ArrayBuffer(63); 
 		const view = new DataView(buffer);
 
