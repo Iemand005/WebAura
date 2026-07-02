@@ -9,10 +9,13 @@
 	<script>
 		const aura = new Aura();
 
+		function setColor(ev) {
+
+		}
 	</script>
 </head>
 <body>
 	<button onclick="aura.init()">Open device</button>
-	<input type="color" name="color" id="color">
+	<input type="color" name="color" id="color" onchange="setColor(this)">
 </body>
 </html>
