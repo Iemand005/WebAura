@@ -28,14 +28,9 @@ class Aura {
 	/** @param {(view:DataView)=>void} viewInit  */
 	async sendFeatureReport(viewInit) {
 		if (!this.device) throw new Error("Not initialized.");
-		const buffer = new ArrayBuffer(63); 
-		const view = new DataView(buffer);
-
-		viewInit(view);
-
-		const data = new Uint8Array(buffer);
-
-		await this.device.sendFeatureReport(0x5A, data);
+		const buffer = new ArrayBuffer(63);
+		viewInit(new DataView(buffer));
+		await this.device.sendFeatureReport(0x5A, new Uint8Array(buffer));
 	}
 
 	async sendAuraInitReport() {
