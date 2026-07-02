@@ -54,9 +54,9 @@ class Aura {
 			view.setUint8(1, 0x01); // mode
 			view.setUint8(2, 0x01); // apply
 
-			view.setUint8(8, r);  // r
-			view.setUint8(9, g);  // g
-			view.setUint8(10, b); // b
+			view.setUint8(8, r);
+			view.setUint8(9, g);
+			view.setUint8(10, b);
 		});
 	}
 }
