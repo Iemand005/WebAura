@@ -29,4 +29,34 @@ class Aura {
 		await this.device.sendReport(reportId, data);
 	}
 
+	// /******************************************************************************
+	/**
+	 * @param {number} r 
+	 * @param {number} g 
+	 * @param {number} b 
+	 */
+	async sendAuraColorReport(r, g, b) {
+		if (!this.device) return;
+		const buffer = new ArrayBuffer(63);
+		const view = new DataView(buffer);
+
+		// Set structural fields
+		view.setUint8(0, 0xBC); // cmd
+		view.setUint8(1, 0x01); // mode
+		view.setUint8(2, 0x01); // apply
+
+		// Set RGB values (C++ bytes 9, 10, 11 shift to 8, 9, 10)
+		view.setUint8(8, r);  // r
+		view.setUint8(9, g);  // g
+		view.setUint8(10, b); // b
+
+		// The remaining reserved padding fields default to 0x00 automatically
+
+		const reportId = 0x5A;
+		const data = new Uint8Array(buffer);
+
+		await this.device.sendReport(reportId, data);
+	}
+
+
 }
