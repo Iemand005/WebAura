@@ -12,10 +12,10 @@ class Aura {
 		const device = devices.find(device => device.collections.find(collection => collection.usagePage === 0xFF31 && collection.usage === 0x76));
 
 		if (!device) return;
-		
+
 		if (!device.opened) await device.open();
 
-		 this.device = device;
+		this.device = device;
 	}
 
 	async sendAuraInitReport() {
@@ -30,7 +30,7 @@ class Aura {
 		const reportId = 0x5A; // byte 0
 		const data = new Uint8Array(buffer);
 
-		await this.device.sendReport(reportId, data);
+		await this.device.sendFeatureReport(reportId, data);
 	}
 
 	/**
@@ -54,7 +54,7 @@ class Aura {
 		const reportId = 0x5A;
 		const data = new Uint8Array(buffer);
 
-		await this.device.sendReport(reportId, data);
+		await this.device.sendFeatureReport(reportId, data);
 	}
 
 
