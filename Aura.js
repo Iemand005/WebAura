@@ -14,7 +14,7 @@ class Aura {
         	if (!('hid' in navigator)) return;
 		const devices = await navigator.hid.requestDevice({ filters: [{ vendorId: ASUS_VID }] });
 
-		const device = devices.find(device => device.collections.find(({usage, usagePage}) => usagePage === 0xFF31 && usage === 0x76));
+		const device = devices.find(device => device.collections.find(c => c.usagePage === 0xFF31 && c.usage === 0x76));
 
 		if (!device) return;
 		if (!device.opened) await device.open();
