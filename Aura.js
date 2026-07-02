@@ -3,6 +3,11 @@ class Aura {
 	/** @type {HIDDevice?} */
 	device = null;
 
+	async init() {
+		await this.getAuraDevice();
+		await this.sendAuraInitReport();
+	}
+
 	async getAuraDevice() {
         	if (!('hid' in navigator)) return;
 		const devices = await navigator.hid.requestDevice({
