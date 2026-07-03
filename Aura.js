@@ -1,3 +1,7 @@
+'use strict';
+'use esnext';
+'use moz';
+
 const ASUS_VID = 0x0B05;
 
 class Aura {
