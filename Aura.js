@@ -19,6 +19,7 @@ class Aura {
 	async init() {
 		await this.getAuraDevice();
 		await this.sendAuraInitReport();
+		this.tryReopenAuraDevice();
 	}
 
 	async getAuraDevice() {
