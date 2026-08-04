@@ -19,11 +19,11 @@ class Aura {
 	async init(requestPermission = false) {
 		await this.getAuraDevice(requestPermission);
 		await this.sendAuraInitReport();
-		// await this.tryReopenAuraDevice();
 	}
 
 	async getAuraDevice(requestPermission = false) {
 		if (await this.tryReopenAuraDevice()) return true;
+		if (!requestPermission) return false;
 		return await this.requestAuraPermission();
 	}
 	
