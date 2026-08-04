@@ -19,11 +19,15 @@ class Aura {
 	async init() {
 		await this.getAuraDevice();
 		await this.sendAuraInitReport();
-		this.tryReopenAuraDevice();
+		await this.tryReopenAuraDevice();
 	}
 
 	async getAuraDevice() {
 		if (await this.tryReopenAuraDevice()) return true;
+		return await this.requestAuraPermission();
+	}
+	
+	async requestAuraPermission() {
 		return await this.openAuraDevice(await navigator.hid.requestDevice({ filters: [{ vendorId: ASUS_VID }] }));
 	}
 
