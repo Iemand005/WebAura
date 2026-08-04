@@ -22,9 +22,9 @@ class Aura {
 	}
 
 	async getAuraDevice() {
-		a = await navigator.hid.getDevices()
-
-		let devices = await navigator.hid.requestDevice({ filters: [{ vendorId: ASUS_VID }] });
+		let devices = await navigator.hid.getDevices();
+		if (await this.openAuraDevice(devices)) return;
+		devices = await navigator.hid.requestDevice({ filters: [{ vendorId: ASUS_VID }] });
 	}
 	
 	/** @param {HIDDevice[]} devices  */
