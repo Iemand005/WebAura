@@ -12,21 +12,31 @@ class Aura {
 	usagePage = 0xFF31;
 	usage = 0x76;
 
+	constructor() {
+		if (!('hid' in navigator)) throw new Error("This browser does not support WebHID.");
+	}
+
 	async init() {
 		await this.getAuraDevice();
 		await this.sendAuraInitReport();
 	}
 
 	async getAuraDevice() {
-		if (!('hid' in navigator)) throw new Error("This browser does not support WebHID.");
-		const devices = await navigator.hid.requestDevice({ filters: [{ vendorId: ASUS_VID }] });
+		a = await navigator.hid.getDevices()
 
+		let devices = await navigator.hid.requestDevice({ filters: [{ vendorId: ASUS_VID }] });
+	}
+	
+	/** @param {HIDDevice[]} devices  */
+	async openAuraDevice(devices) {
 		const device = devices.find(device => device.collections.find(c => c.usagePage === this.usagePage && c.usage === this.usage));
-
+	
 		if (!device) throw new Error("No Aura device found.");
 		if (!device.opened) await device.open();
-
+	
 		this.device = device;
+
+		return device.opened;
 	}
 
 	/** @param {(view:DataView)=>void} viewInit  */
