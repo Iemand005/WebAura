@@ -25,6 +25,10 @@ class Aura {
 		if (await this.openAuraDevice(await navigator.hid.getDevices())) return true;
 		return await this.openAuraDevice(await navigator.hid.requestDevice({ filters: [{ vendorId: ASUS_VID }] }));
 	}
+
+	async tryReopenAuraDevice() {
+		return await this.openAuraDevice(await navigator.hid.getDevices());
+	}
 	
 	/** @param {HIDDevice[]} devices  */
 	async openAuraDevice(devices) {
