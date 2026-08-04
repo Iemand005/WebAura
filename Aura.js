@@ -16,13 +16,13 @@ class Aura {
 		if (!('hid' in navigator)) throw new Error("This browser does not support WebHID.");
 	}
 
-	async init() {
-		await this.getAuraDevice();
+	async init(requestPermission = false) {
+		await this.getAuraDevice(requestPermission);
 		await this.sendAuraInitReport();
-		await this.tryReopenAuraDevice();
+		// await this.tryReopenAuraDevice();
 	}
 
-	async getAuraDevice() {
+	async getAuraDevice(requestPermission = false) {
 		if (await this.tryReopenAuraDevice()) return true;
 		return await this.requestAuraPermission();
 	}
