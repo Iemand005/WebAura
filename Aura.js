@@ -22,7 +22,7 @@ class Aura {
 	}
 
 	async getAuraDevice() {
-		if (await this.openAuraDevice(await navigator.hid.getDevices())) return true;
+		if (await this.tryReopenAuraDevice()) return true;
 		return await this.openAuraDevice(await navigator.hid.requestDevice({ filters: [{ vendorId: ASUS_VID }] }));
 	}
 
