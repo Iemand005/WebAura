@@ -37,9 +37,14 @@ class Aura {
 	
 	/** @param {HIDDevice[]} devices  */
 	async openAuraDevice(devices) {
+		if (devices.length === 0) return;
+
 		const device = devices.find(device => device.collections.find(c => c.usagePage === this.usagePage && c.usage === this.usage));
 	
-		if (!device) throw new Error("No Aura device found.");
+		if (!device) {
+			console.warn("No Aura device found.");
+			return false;
+		}
 		if (!device.opened) await device.open();
 	
 		this.device = device;
